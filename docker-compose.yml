@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+    tethysdb:
+        image: mysql:8.0.25
+        container_name: telco
+        tty: true
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'telco'
+            MYSQL_USER: 'telco'
+            MYSQL_PASSWORD: 'telco'
+            MYSQL_ROOT_PASSWORD: 'threeblindmice'
+        security_opt:
+            - seccomp:unconfined
+        volumes:
+            - ./mysql:/docker-entrypoint-initdb.d/:ro
+            - /opt/apps/telcodb:/var/lib/mysql
+        ports:
+            - 3306:3306
